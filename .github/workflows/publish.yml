@@ -17,4 +17,11 @@ jobs:
       - run: npm ci
       - run: npm run compile
       - name: Publish to Marketplace
-        run: npx @vscode/vsce publish -p ${{ secrets.VSCE_PAT }}
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: |
+          if [ -n "$VSCE_PAT" ]; then
+            npx @vscode/vsce publish -p "$VSCE_PAT"
+          else
+            echo "VSCE_PAT not set — skipping Marketplace publish."
+          fi
