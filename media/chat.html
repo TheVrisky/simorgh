@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src {{cspSource}}; img-src data: {{cspSource}}; script-src 'nonce-{{nonce}}';">
+    <link rel="stylesheet" href="{{styleUri}}">
+    <title>AI Assistant</title>
+</head>
+<body>
+    <!-- Tabs -->
+    <div class="tab-header">
+        <button class="tab-btn active" id="tabChat">گفتگو</button>
+        <button class="tab-btn" id="tabHistory">تاریخچه</button>
+        <button class="tab-btn" id="tabSettings">تنظیمات</button>
+    </div>
+
+    <!-- ===== CHAT ===== -->
+    <div id="viewChat" class="tab-content active">
+        <div class="chat-area" id="chatArea">
+            <div class="welcome" id="welcome">
+                <h2>سلام! من 🦅 Simorgh هستم، دستیار هوش مصنوعی شما <span class="provider-badge" id="welcomeProvider"></span></h2>
+                <p>سوال بپرسید، کد بفرستید یا حتی تصویر بچسبانید (Ctrl+V)</p>
+                <div class="welcome-cards" id="welcomeCards"></div>
+            </div>
+            <div id="messages"></div>
+        </div>
+        <div class="composer">
+            <div class="quick-actions" id="quickActions"></div>
+            <div class="favorites-row" id="favoritesRow"></div>
+            <div class="image-chips" id="imageChips"></div>
+            <div class="input-row">
+                <button class="icon-btn" id="attachBtn" title="افزودن تصویر">+</button>
+                <textarea id="userPrompt" placeholder="پیام خود را بنویسید... (Enter = ارسال، Shift+Enter = خط جدید)"></textarea>
+                <button class="send-btn" id="sendBtn">ارسال</button>
+                <button class="stop-btn" id="stopBtn">توقف</button>
+            </div>
+            <div class="composer-actions">
+                <button class="mini-btn" id="previewBtn">پیش‌نمایش Markdown</button>
+                <button class="mini-btn" id="snippetPickerBtn">دستورات (Snippets)</button>
+                <button class="mini-btn" id="writeCodeBtn">کد بنویس (جایگزینی فایل)</button>
+                <button class="mini-btn" id="exportBtn">خروجی Markdown</button>
+                <button class="mini-btn" id="newChatBtn">گفتگوی جدید</button>
+            </div>
+            <div class="preview-pane" id="previewPane" style="display:none;">
+                <div class="preview-title">پیش‌نمایش زنده:</div>
+                <div class="md" id="previewContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HISTORY ===== -->
+    <div id="viewHistory" class="tab-content">
+        <div class="history-area">
+            <input type="text" class="history-search" id="historySearch" placeholder="جستجو در تاریخچه گفتگوها...">
+            <div id="convList"></div>
+        </div>
+    </div>
+
+    <!-- ===== SETTINGS ===== -->
+    <div id="viewSettings" class="tab-content">
+        <div class="settings-area">
+            <div class="field-group">
+                <label for="providerSelect">ارائه‌دهنده هوش مصنوعی:</label>
+                <select id="providerSelect"></select>
+                <div class="hint">کلید API هر سرویس جداگانه و امن (SecretStorage) ذخیره می‌شود؛ با تغییر ارائه‌دهنده، مدل و کلید مخصوص همان سرویس بارگذاری می‌شود.</div>
+            </div>
+            <div class="field-group" id="baseUrlGroup">
+                <label for="baseUrlInput">آدرس پایه API (Base URL):</label>
+                <input type="text" id="baseUrlInput" dir="ltr" placeholder="https://api.example.com/v1">
+                <div class="hint">برای سرویس‌های سفارشی یا Ollama محلی این آدرس را تغییر دهید (مثال: http://localhost:11434/v1)</div>
+            </div>
+            <div class="field-group">
+                <label id="apiKeyLabel">API Key:</label>
+                <div class="api-key-row">
+                    <span id="apiKeyStatus" class="status unset">بارگذاری...</span>
+                    <button class="btn-small" id="setApiKeyBtn">تنظیم کلید</button>
+                    <button class="btn-small" id="clearApiKeyBtn">حذف کلید</button>
+                </div>
+            </div>
+            <div class="field-group">
+                <label for="modelSelect">انتخاب مدل:</label>
+                <div style="display:flex; gap:4px;">
+                    <select id="modelSelect" style="flex:1;"></select>
+                    <button class="btn-small" id="fetchModelsBtn">دریافت مدل‌ها</button>
+                </div>
+            </div>
+            <div class="field-group">
+                <label for="speed">سرعت تایپ «کد بنویس» (میلی‌ثانیه):</label>
+                <input type="number" id="speed" value="10" min="1" max="2000">
+            </div>
+            <div class="field-group">
+                <label>آمار مصرف توکن (این پروژه):</label>
+                <div class="usage-box" id="usageBox">بارگذاری...</div>
+                <button class="btn-small" id="resetUsageBtn">صفر کردن آمار</button>
+            </div>
+            <button class="send-btn" id="saveSettingsBtn" style="height:32px;">ذخیره تنظیمات</button>
+        </div>
+    </div>
+
+    <script nonce="{{nonce}}" src="{{scriptUri}}"></script>
+</body>
+</html>

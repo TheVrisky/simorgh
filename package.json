@@ -1,0 +1,232 @@
+{
+  "name": "simorgh",
+  "displayName": "Simorgh — AI Coding Assistant",
+  "description": "دستیار هوشمند کدنویسی فارسی با پشتیبانی از ۸ مدل: Gemini، OpenAI (GPT)، Claude، DeepSeek، OpenRouter، Groq و Ollama",
+  "version": "0.6.0",
+  "publisher": "mehdi-ghobadi",
+  "license": "MIT",
+  "author": {
+    "name": "مهدی قبادی",
+    "url": "https://github.com/TheVrisky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheVrisky/simorgh.git"
+  },
+  "homepage": "https://github.com/TheVrisky/simorgh#readme",
+  "bugs": {
+    "url": "https://github.com/TheVrisky/simorgh/issues"
+  },
+  "galleryBanner": {
+    "color": "#0b1220",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.136.1"
+  },
+  "categories": [
+    "AI",
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "gemini",
+    "openai",
+    "claude",
+    "anthropic",
+    "deepseek",
+    "ollama",
+    "multi-provider",
+    "ai",
+    "code-assistant",
+    "persian",
+    "farsi",
+    "code-review",
+    "git"
+  ],
+  "activationEvents": [
+    "onView:geminiAssistantView",
+    "onView:geminiAssistantSnippets"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "geminiAssistantContainer",
+          "title": "Simorgh",
+          "icon": "$(sparkle)"
+        }
+      ]
+    },
+    "views": {
+      "geminiAssistantContainer": [
+        {
+          "type": "webview",
+          "id": "geminiAssistantView",
+          "name": "گفتگو با هوش مصنوعی"
+        },
+        {
+          "id": "geminiAssistantSnippets",
+          "name": "کتابچه دستورات"
+        }
+      ]
+    },
+    "chatParticipants": [
+      {
+        "id": "aiassistant.chat",
+        "name": "aiassistant",
+        "fullName": "AI Assistant",
+        "description": "دستیار هوش مصنوعی چندمدلی (Gemini/OpenAI/Claude/DeepSeek/Groq/Ollama)",
+        "isSticky": true
+      }
+    ],
+    "configuration": {
+      "title": "AI Assistant",
+      "properties": {
+        "aiassistant.inlineCompletion.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "فعال کردن تکمیل خودکار کد (Inline Completion)"
+        },
+        "aiassistant.inlineCompletion.debounceMs": {
+          "type": "number",
+          "default": 350,
+          "description": "تاخیر (میلی‌ثانیه) قبل از درخواست تکمیل خودکار"
+        },
+        "aiassistant.rulesFile": {
+          "type": "string",
+          "default": ".aiassistant/rules.md",
+          "description": "مسیر نسبی فایل قوانین سفارشی که به System Prompt اضافه می‌شود"
+        }
+      }
+    },
+    "commands": [
+      { "command": "gemini-assistant.helloWorld", "title": "AI: Hello World" },
+      { "command": "gemini-assistant.setApiKey", "title": "AI: تنظیم کلید API" },
+      { "command": "gemini-assistant.clearApiKey", "title": "AI: حذف کلید API" },
+      { "command": "gemini-assistant.selectProvider", "title": "AI: تغییر ارائه‌دهنده هوش مصنوعی", "category": "AI Assistant" },
+      { "command": "gemini-assistant.setBaseUrl", "title": "AI: تنظیم آدرس پایه API (Base URL)", "category": "AI Assistant" },
+
+      { "command": "gemini-assistant.generateCommitMessage", "title": "AI: تولید پیام Commit", "category": "AI Developer Tools" },
+      { "command": "gemini-assistant.generatePRDescription", "title": "AI: تولید توضیح Pull Request", "category": "AI Developer Tools" },
+      { "command": "gemini-assistant.codeReview", "title": "AI: Code Review پیش از Commit", "category": "AI Developer Tools" },
+      { "command": "gemini-assistant.generateChangelog", "title": "AI: تولید Changelog", "category": "AI Developer Tools" },
+      { "command": "gemini-assistant.dailyStandup", "title": "AI: Daily Standup از Git", "category": "AI Developer Tools" },
+      { "command": "gemini-assistant.generateReadme", "title": "AI: تولید README از کد", "category": "AI Developer Tools" },
+      { "command": "gemini-assistant.explainProblem", "title": "AI: توضیح خطا از Problems", "category": "AI Developer Tools" },
+      { "command": "gemini-assistant.migrationHelper", "title": "AI: Migration Helper", "category": "AI Developer Tools" },
+      { "command": "gemini-assistant.deprecationDetector", "title": "AI: تشخیص API‌های Deprecated", "category": "AI Developer Tools" },
+      { "command": "gemini-assistant.securityAudit", "title": "AI: Security Audit", "category": "AI Developer Tools" },
+
+      { "command": "gemini-assistant.saveCustomSnippet", "title": "AI: ذخیره Snippet سفارشی", "category": "AI Quick Templates" },
+      { "command": "gemini-assistant.toggleFavorite", "title": "AI: ستاره‌دار کردن Snippet", "category": "AI Quick Templates" },
+      { "command": "gemini-assistant.refreshSnippets", "title": "AI: به‌روزرسانی فهرست Snippet‌ها", "icon": "$(refresh)", "category": "AI Quick Templates" },
+      { "command": "gemini-assistant.openSnippetInChat", "title": "AI: اجرای Snippet در چت", "category": "AI Quick Templates" },
+      { "command": "gemini-assistant.explainSelection", "title": "AI: توضیح کد انتخاب‌شده", "category": "AI Quick Templates" },
+      { "command": "gemini-assistant.applyCode", "title": "AI: اعمال کد تولیدشده در فایل", "category": "AI Integration" },
+      { "command": "gemini-assistant.toggleInlineCompletion", "title": "AI: فعال/غیرفعال کردن تکمیل خودکار کد", "category": "AI Integration" },
+
+      { "command": "gemini-assistant.refactorSelection", "title": "AI: ریفکتور کد انتخاب‌شده", "category": "AI Integration" },
+      { "command": "gemini-assistant.fixSelection", "title": "AI: رفع باگ کد انتخاب‌شده", "category": "AI Integration" },
+      { "command": "gemini-assistant.testSelection", "title": "AI: تولید تست برای کد انتخاب‌شده", "category": "AI Integration" },
+      { "command": "gemini-assistant.explainTerminalError", "title": "AI: توضیح خطای ترمینال", "category": "AI Integration" },
+      { "command": "gemini-assistant.addGitDiffToChat", "title": "AI: افزودن Git Diff به چت", "category": "AI Integration" },
+      { "command": "gemini-assistant.explainActiveFileProblems", "title": "AI: توضیح مشکلات فایل فعال", "category": "AI Integration" },
+
+      { "command": "gemini-assistant.exportChat", "title": "AI: خروجی Markdown از گفتگو", "icon": "$(export)", "category": "AI Chat" },
+      { "command": "gemini-assistant.openChatInTab", "title": "AI: باز کردن چت در تب", "category": "AI Chat" },
+      { "command": "gemini-assistant.newChat", "title": "AI: گفتگوی جدید", "icon": "$(add)", "category": "AI Chat" }
+    ],
+    "keybindings": [
+      { "command": "workbench.view.extension.geminiAssistantContainer", "key": "alt+g" },
+      { "command": "gemini-assistant.explainSelection", "key": "alt+shift+e", "when": "editorHasSelection" },
+      { "command": "gemini-assistant.refactorSelection", "key": "alt+shift+r", "when": "editorHasSelection" },
+      { "command": "gemini-assistant.testSelection", "key": "alt+shift+t", "when": "editorHasSelection" },
+      { "command": "gemini-assistant.fixSelection", "key": "alt+shift+b", "when": "editorHasSelection" },
+      { "command": "gemini-assistant.generateCommitMessage", "key": "alt+shift+m" },
+      { "command": "gemini-assistant.codeReview", "key": "alt+shift+v" },
+      { "command": "gemini-assistant.newChat", "key": "alt+n" }
+    ],
+    "menus": {
+      "commandPalette": [
+        { "command": "gemini-assistant.openSnippetInChat", "when": "false" },
+        { "command": "gemini-assistant.toggleFavorite", "when": "false" },
+        { "command": "gemini-assistant.refreshSnippets", "when": "false" }
+      ],
+      "view/title": [
+        {
+          "command": "gemini-assistant.refreshSnippets",
+          "when": "view == geminiAssistantSnippets",
+          "group": "navigation"
+        },
+        {
+          "command": "gemini-assistant.saveCustomSnippet",
+          "when": "view == geminiAssistantSnippets",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "gemini-assistant.toggleFavorite",
+          "when": "view == geminiAssistantSnippets && viewItem =~ /Snippet/",
+          "group": "inline@1"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "gemini-assistant.explainSelection",
+          "when": "editorHasSelection",
+          "group": "gemini@1"
+        },
+        {
+          "command": "gemini-assistant.refactorSelection",
+          "when": "editorHasSelection",
+          "group": "gemini@2"
+        },
+        {
+          "command": "gemini-assistant.fixSelection",
+          "when": "editorHasSelection",
+          "group": "gemini@3"
+        },
+        {
+          "command": "gemini-assistant.testSelection",
+          "when": "editorHasSelection",
+          "group": "gemini@4"
+        },
+        {
+          "command": "gemini-assistant.addGitDiffToChat",
+          "group": "gemini@5"
+        }
+      ],
+      "terminal/context": [
+        {
+          "command": "gemini-assistant.explainTerminalError",
+          "group": "gemini@1"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "node ./node_modules/typescript/bin/tsc -p ./",
+    "watch": "node ./node_modules/typescript/bin/tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.136.1",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "24.x",
+    "typescript-eslint": "^8.61.1",
+    "eslint": "^10.5.0",
+    "typescript": "^6.0.3",
+    "@vscode/test-cli": "^0.0.15",
+    "@vscode/test-electron": "^3.0.0"
+  },
+  "overrides": {
+    "diff": "^8.0.4",
+    "serialize-javascript": "^7.0.6"
+  }
+}
