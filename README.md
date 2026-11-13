@@ -195,8 +195,3 @@ Then open a Pull Request.
 This project is released under the **MIT** License. See [LICENSE](LICENSE).
 
 ---
-
-<p align="center">
-  Made with ❤️ for Persian-speaking developers<br/>
-  <sub>If you find this project useful, please ⭐ it on GitHub!</sub>
-</p>
