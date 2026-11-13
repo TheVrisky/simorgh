@@ -195,8 +195,3 @@ git push origin feature/amazing-feature
 این پروژه تحت لایسنس **MIT** منتشر شده است. فایل [LICENSE](LICENSE) را ببینید.
 
 ---
-
-<p align="center">
-  ساخته‌شده با ❤️ برای توسعه‌دهندگان فارسی‌زبان<br/>
-  <sub>اگر این پروژه برایتان مفید بود، یک ⭐ در GitHub فراموش نشود!</sub>
-</p>
